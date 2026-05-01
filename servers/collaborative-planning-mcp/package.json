@@ -1,0 +1,32 @@
+{
+  "name": "collaborative-planning-mcp",
+  "version": "1.0.0",
+  "description": "Collaborative Planning MCP - AI-powered task decomposition, multi-agent coordination, and workflow orchestration",
+  "main": "dist/index.js",
+  "type": "module",
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsx src/index.ts",
+    "start": "node dist/index.js",
+    "test": "tsx src/test.ts"
+  },
+  "keywords": [
+    "mcp",
+    "planning",
+    "collaboration",
+    "orchestration",
+    "workflow"
+  ],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.29.0",
+    "dotenv": "^17.4.2",
+    "ioredis": "^5.10.1"
+  },
+  "devDependencies": {
+    "@types/node": "^25.6.0",
+    "tsx": "^4.21.0",
+    "typescript": "^6.0.3"
+  }
+}

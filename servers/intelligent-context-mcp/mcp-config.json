@@ -1,0 +1,19 @@
+{
+  "mcpServers": {
+    "intelligent-context": {
+      "command": "node",
+      "args": [
+        "/Users/azfar.naufal/Documents/kiro_project/intelligent-context-mcp/dist/index.js"
+      ],
+      "env": {
+        "VOYAGE_API_KEY": "pa-YeJ1pTIVrOiA4bQ-wnrd3j4Smhu2XWbhF8coDtFjmiK",
+        "ANTHROPIC_API_KEY": "sk-6005783058ec762b-ej7cxd-99255e97",
+        "ANTHROPIC_BASE_URL": "http://3.68.219.151:20128/v1",
+        "QDRANT_URL": "http://localhost:6333",
+        "QDRANT_COLLECTION": "code_context",
+        "REDIS_HOST": "localhost",
+        "REDIS_PORT": "6379"
+      }
+    }
+  }
+}
