@@ -363,8 +363,8 @@ kiro-intelligent-mcp-suite/
 
 ## Questions?
 
-- **General questions**: [GitHub Discussions](https://github.com/yourusername/kiro-intelligent-mcp-suite/discussions)
-- **Bug reports**: [GitHub Issues](https://github.com/yourusername/kiro-intelligent-mcp-suite/issues)
+- **General questions**: [GitHub Discussions](https://github.com/naufalworks/kiro-intelligent-mcp-suite/discussions)
+- **Bug reports**: [GitHub Issues](https://github.com/naufalworks/kiro-intelligent-mcp-suite/issues)
 - **Security issues**: Email maintainers directly
 
 ## License

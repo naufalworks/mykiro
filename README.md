@@ -64,7 +64,7 @@ Task decomposition, agent coordination, and workflow orchestration.
 
 ```bash
 # Clone the repository
-git clone https://github.com/yourusername/kiro-intelligent-mcp-suite.git
+git clone https://github.com/naufalworks/kiro-intelligent-mcp-suite.git
 cd kiro-intelligent-mcp-suite
 
 # Set environment variables
@@ -287,8 +287,8 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## 📧 Support
 
-- **Issues**: [GitHub Issues](https://github.com/yourusername/kiro-intelligent-mcp-suite/issues)
-- **Discussions**: [GitHub Discussions](https://github.com/yourusername/kiro-intelligent-mcp-suite/discussions)
+- **Issues**: [GitHub Issues](https://github.com/naufalworks/kiro-intelligent-mcp-suite/issues)
+- **Discussions**: [GitHub Discussions](https://github.com/naufalworks/kiro-intelligent-mcp-suite/discussions)
 - **Documentation**: [docs/](docs/)
 
 ## 🗺️ Roadmap

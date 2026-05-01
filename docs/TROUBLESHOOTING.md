@@ -481,8 +481,8 @@ When reporting issues, include:
 ## Still Having Issues?
 
 1. **Check documentation**: [docs/](../docs/)
-2. **Search issues**: [GitHub Issues](https://github.com/yourusername/kiro-intelligent-mcp-suite/issues)
-3. **Ask community**: [GitHub Discussions](https://github.com/yourusername/kiro-intelligent-mcp-suite/discussions)
+2. **Search issues**: [GitHub Issues](https://github.com/naufalworks/kiro-intelligent-mcp-suite/issues)
+3. **Ask community**: [GitHub Discussions](https://github.com/naufalworks/kiro-intelligent-mcp-suite/discussions)
 4. **File bug report**: Include logs and reproduction steps
 
 ---
