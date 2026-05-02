@@ -42,6 +42,8 @@ Work like a professional developer collaborating with a colleague, not an autono
 
 **Goal**: Retrieve all relevant context efficiently
 
+**Use**: `intelligent-context` MCP server
+
 **Process:**
 1. Build rich search query from clarified requirements
 2. Search in layers (Redis → Qdrant → Index)
@@ -86,6 +88,8 @@ Context Assembly:
 ### Phase 3: Issue Detection (Automatic)
 
 **Goal**: Find potential problems before planning
+
+**Use**: `predictive-analysis` MCP server
 
 **Process:**
 1. Analyze context for issues
@@ -170,7 +174,7 @@ Would you like to:
 
 **Goal**: Create detailed, reviewable plan
 
-**Use**: Sequential Thinking MCP
+**Use**: `sequential-thinking` MCP server
 
 **Process:**
 ```
@@ -301,26 +305,12 @@ User suggests changes → Update plan, re-confirm
 ```
 Based on task type, load:
 
-React Components:
-└─ React Component Power
-
-API Work:
-└─ API Testing Power (Postman)
-
-Database:
-├─ Supabase Power
-└─ Firebase Power
-
 Documentation:
-└─ Context7 Power
+└─ Context7 Power (via kiroPowers tool)
 
-Deployment:
-├─ Netlify Power
-└─ Vercel Power
-
-Observability:
-├─ Datadog Power
-└─ Sentry Power
+Note: Other Powers (React Component, Postman, Supabase, Firebase, 
+Netlify, Vercel, Datadog, Sentry, Figma, Miro) are not currently 
+installed. Only Context7 Power is available.
 ```
 
 **Execution Format:**
@@ -357,25 +347,28 @@ Step 4/4: Update exports
 
 **Skills Usage:**
 ```
-During execution, use skills:
+During execution, use skills (conceptual actions):
 
 Code Quality:
-├─ /lint - Check code style
-├─ /test - Run tests
-└─ /review - Review changes
+├─ /lint - Run linting (e.g., npm run lint, eslint)
+├─ /test - Run tests (e.g., npm test, vitest)
+└─ /review - Review changes manually
 
 Refactoring:
-├─ /refactor - Refactor code
+├─ /refactor - Refactor code using sequential-thinking MCP
 ├─ /simplify - Simplify complex code
 └─ /optimize - Optimize performance
 
 Documentation:
-├─ /document - Generate docs
-└─ /explain - Explain code
+├─ /document - Generate JSDoc comments
+└─ /explain - Explain code logic
 
 Git:
-├─ /commit - Create commit
-└─ /pr - Create pull request
+├─ /commit - Create git commit with conventional format
+└─ /pr - Create pull request using gh/glab CLI
+
+Note: Skills are conceptual actions, not executable commands. 
+They represent tasks to perform using available tools and MCP servers.
 ```
 
 ---
@@ -417,8 +410,10 @@ Git:
 
 **Goal**: Archive work and update memory
 
+**Use**: `adaptive-memory` MCP server
+
 **Process:**
-1. Generate embedding (Ollama, 768-dim)
+1. Generate embedding (Voyage API, 1024-dim)
 2. Store in Qdrant vector DB
 3. Update JSON index
 4. Cache in Redis (adaptive TTL)
@@ -702,13 +697,13 @@ Please review and confirm next steps.
 
 ```
 1. CLARIFY → Ask until 100% clear
-2. SEARCH → Get complete context (Redis → Qdrant → Index)
-3. DETECT → Find issues automatically
-4. PLAN → Create detailed plan (Sequential Thinking MCP)
+2. SEARCH → Get complete context using intelligent-context MCP (Redis → Qdrant → Index)
+3. DETECT → Find issues automatically using predictive-analysis MCP
+4. PLAN → Create detailed plan using sequential-thinking MCP
 5. APPROVE → Wait for explicit "yes"
 6. EXECUTE → Use Powers & Skills
 7. VALIDATE → Test everything
-8. ARCHIVE → Update memory (Qdrant + Redis + Index)
+8. ARCHIVE → Update memory using adaptive-memory MCP (Qdrant + Redis + Index)
 9. REPORT → Show results and next steps
 ```
 
@@ -944,16 +939,16 @@ Fix: Correct the file paths and re-invoke
 
 ```
 1. CLARIFY → Ask until 100% clear
-2. SEARCH → Get complete context (Redis → Qdrant → Index)
-3. DETECT → Find issues automatically
-4. PLAN → Create detailed plan (Sequential Thinking MCP)
+2. SEARCH → Get complete context using intelligent-context MCP (Redis → Qdrant → Index)
+3. DETECT → Find issues automatically using predictive-analysis MCP
+4. PLAN → Create detailed plan using sequential-thinking MCP
 5. APPROVE → Wait for explicit "yes"
 6. EXECUTE → Use Powers & Skills
    ├─ For complex workflows: Delegate to subagent WITH contextFiles
    ├─ For simple tasks: Execute directly
    └─ Always pass relevant context when delegating
 7. VALIDATE → Test everything
-8. ARCHIVE → Update memory (Qdrant + Redis + Index)
+8. ARCHIVE → Update memory using adaptive-memory MCP (Qdrant + Redis + Index)
 9. REPORT → Show results and next steps
 ```
 

@@ -51,7 +51,7 @@ Layer 1: Redis Cache (Hot - In-Memory)
 └── Adaptive TTL (1h - 7d)
 
 Layer 2: Qdrant Vector DB (Warm - Semantic Search)
-├── All embeddings (768-dim via Ollama)
+├── All embeddings (1024-dim via Voyage API)
 ├── Semantic similarity search
 ├── Fast retrieval (50-200ms)
 └── Includes archived items
