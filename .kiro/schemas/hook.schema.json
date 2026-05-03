@@ -1,0 +1,82 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Kiro Hook Configuration",
+  "description": "JSON schema for Kiro agent hook files",
+  "type": "object",
+  "required": ["name", "version", "description", "when", "then"],
+  "properties": {
+    "enabled": {
+      "type": "boolean",
+      "description": "Whether the hook is enabled"
+    },
+    "name": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Human-readable name for the hook"
+    },
+    "version": {
+      "type": "string",
+      "pattern": "^[0-9]+(\\.[0-9]+)*$",
+      "description": "Version number (e.g., '1', '1.0', '1.0.0')"
+    },
+    "description": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Description of what the hook does"
+    },
+    "when": {
+      "type": "object",
+      "required": ["type"],
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "fileEdited",
+            "fileCreated",
+            "fileDeleted",
+            "userTriggered",
+            "promptSubmit",
+            "agentStop",
+            "preToolUse",
+            "postToolUse",
+            "preTaskExecution",
+            "postTaskExecution"
+          ]
+        },
+        "patterns": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "File patterns for file-based events"
+        },
+        "toolTypes": {
+          "type": "string",
+          "description": "Tool types for preToolUse/postToolUse events"
+        }
+      }
+    },
+    "then": {
+      "type": "object",
+      "required": ["type"],
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": ["askAgent", "runCommand"]
+        },
+        "prompt": {
+          "type": "string",
+          "description": "Prompt for askAgent action"
+        },
+        "command": {
+          "type": "string",
+          "description": "Command for runCommand action"
+        },
+        "timeout": {
+          "type": "number",
+          "description": "Timeout in seconds for runCommand"
+        }
+      }
+    }
+  }
+}
