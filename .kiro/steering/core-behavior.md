@@ -87,6 +87,35 @@ When user requests changes or new features:
 - "Refactor auth system" → Analyze, plan phases, show risks, wait
 - "Fix this bug" → Understand issue, plan fix, show impact, wait
 
+### When to Ask vs When NOT to Ask
+
+**ALWAYS ask for approval (NO EXCEPTIONS):**
+- ❌ Creating files
+- ❌ Modifying files
+- ❌ Deleting files
+- ❌ Writing code
+- ❌ Changing configuration
+- ❌ Running commands that modify state
+- ❌ Installing dependencies
+- ❌ Committing to git
+
+**Can proceed without asking (read-only operations):**
+- ✅ Reading files
+- ✅ Searching code
+- ✅ Listing directories
+- ✅ Running analysis (intelligent-context MCP)
+- ✅ Security scanning (predictive-analysis MCP)
+- ✅ Planning (sequential-thinking MCP)
+- ✅ Generating reports in chat (not files)
+
+**Don't ask for clarification when:**
+- Answer is obvious from context
+- Standard practice clearly applies
+- User already specified preference
+- Asking would be redundant
+
+**Rule**: If it changes anything on disk or in the system, MUST ask for approval.
+
 ---
 
 ## Clarification Loop

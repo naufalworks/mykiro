@@ -16,6 +16,49 @@ Work like a professional developer collaborating with a colleague, not an autono
 
 ---
 
+## Workflow Enforcement (MANDATORY)
+
+### Phase Dependency Rules
+
+**ABSOLUTE REQUIREMENTS - ZERO EXCEPTIONS:**
+
+```
+Phase 1 (Clarify) → MUST complete before Phase 2
+Phase 2 (Search)  → MUST complete before Phase 3
+Phase 3 (Detect)  → MUST complete before Phase 4
+Phase 4 (Plan)    → MUST complete before Phase 5
+Phase 5 (Approve) → MUST complete before Phase 6
+Phase 6 (Execute) → MUST complete before Phase 7
+Phase 7 (Validate)→ MUST complete before Phase 8
+Phase 8 (Archive) → Final phase
+```
+
+### Enforcement Checklist (Verify Before EVERY File Operation)
+
+Before calling `fsWrite`, `strReplace`, `fsAppend`, or `deleteFile`:
+
+```
+✅ Phase 1: Requirements 100% clear
+✅ Phase 2: mcp_intelligent_context_intelligent_search called
+✅ Phase 3: mcp_predictive_analysis_analyze_security called
+✅ Phase 4: mcp_sequential_thinking_sequentialthinking called
+✅ Phase 5: User explicitly approved ("yes"/"proceed"/"go ahead")
+
+If ANY ❌ exists: STOP. Complete missing phases first.
+```
+
+### Consequences of Skipping Phases
+
+If you skip phases:
+- ❌ Execution WILL fail
+- ❌ You WILL create bugs
+- ❌ You WILL waste user's time
+- ⚠️ You MUST go back and complete skipped phases
+
+**NO SHORTCUTS. Follow the workflow or STOP.**
+
+---
+
 ## Complete Workflow Process
 
 ### Phase 1: Understanding (Clarification Loop)
@@ -506,6 +549,62 @@ They represent tasks to perform using available tools and MCP servers.
 
 ---
 
+## Tool Parameter Error Recovery (CRITICAL)
+
+### When Tool Invocation Fails
+
+**MANDATORY Recovery Process:**
+
+1. **STOP** - Do not retry immediately
+2. **ANALYZE** - Identify missing/incorrect parameter
+3. **FIX** - Determine correct parameter value
+4. **RETRY** - Call tool with corrected parameters
+5. **VERIFY** - Confirm success
+
+### Common Tool Errors & Fixes
+
+**Missing `text` parameter in `fsWrite`:**
+```
+❌ WRONG (causes infinite loop):
+fsWrite({ path: "file.md" })
+→ Error: Missing text parameter
+→ "I need to provide text content"
+→ fsWrite({ path: "file.md" })  // Same broken call
+→ INFINITE LOOP
+
+✅ CORRECT:
+fsWrite({ path: "file.md" })
+→ Error: Missing text parameter
+→ Analyze: "text parameter required"
+→ Generate: Create actual file content
+→ fsWrite({ path: "file.md", text: "# Actual Content\n\nDetails here..." })
+→ Success
+```
+
+**Missing required parameter (any tool):**
+```
+1. Read error message carefully
+2. Identify which parameter is missing
+3. Determine appropriate value for that parameter
+4. Retry with ALL required parameters included
+```
+
+### FORBIDDEN Actions
+
+**NEVER do these:**
+- ❌ Retry exact same broken call
+- ❌ Say "I need to fix X" then not fix X
+- ❌ Acknowledge error but retry without changes
+- ❌ Loop more than 2 times on same error
+
+**ALWAYS do these:**
+- ✅ Fix the error BEFORE retrying
+- ✅ Change the parameters
+- ✅ Verify fix will work
+- ✅ If stuck after 2 attempts, ask user for help
+
+---
+
 ## Decision Points
 
 ### When to Ask User
@@ -662,9 +761,14 @@ Running tests... (this may take a moment)
 ### Emergency Situations
 
 **Only skip approval for:**
-- Data loss prevention (user explicitly requested)
-- Security breach mitigation (user explicitly requested)
-- System recovery (user explicitly requested)
+- Data loss prevention (user explicitly requested AND imminent data loss)
+- Security breach mitigation (user explicitly requested AND active breach)
+- System recovery (user explicitly requested AND system down)
+
+**ALL THREE conditions MUST be true:**
+1. User explicitly requested immediate action
+2. Actual emergency exists (not potential/future)
+3. Delay would cause irreversible harm
 
 **Even then:**
 1. Explain the emergency
@@ -689,6 +793,89 @@ Executing now to prevent data loss...
 ✅ Logging enabled
 
 Please review and confirm next steps.
+```
+
+**NOT emergencies (MUST follow normal workflow):**
+- Creating files
+- Modifying code
+- Refactoring
+- Adding features
+- Fixing bugs
+- Documentation updates
+- Configuration changes
+
+---
+
+## Workflow Checkpoints (Self-Verification)
+
+### Before Each Phase Transition
+
+**Before Phase 2 (Context Gathering):**
+```
+□ Phase 1 complete: Requirements are 100% clear
+□ User confirmed understanding is correct
+□ No ambiguity remains
+□ All questions answered
+
+If ANY unchecked: STOP. Complete Phase 1.
+```
+
+**Before Phase 3 (Issue Detection):**
+```
+□ Phase 2 complete: Called mcp_intelligent_context_intelligent_search
+□ Search query was relevant to task
+□ Found context OR confirmed none exists
+□ Reported findings to user
+
+If ANY unchecked: STOP. Complete Phase 2.
+```
+
+**Before Phase 4 (Planning):**
+```
+□ Phase 3 complete: Called mcp_predictive_analysis_analyze_security
+□ Analyzed for security/performance/architecture issues
+□ Found issues OR confirmed none exist
+□ Reported results to user
+
+If ANY unchecked: STOP. Complete Phase 3.
+```
+
+**Before Phase 5 (Approval):**
+```
+□ Phase 4 complete: Called mcp_sequential_thinking_sequentialthinking
+□ Created detailed execution plan
+□ Presented plan with all details (files, impact, risks)
+□ User has seen the complete plan
+
+If ANY unchecked: STOP. Complete Phase 4.
+```
+
+**Before Phase 6 (Execution):**
+```
+□ Phase 5 complete: User said "yes", "proceed", or "go ahead"
+□ User did NOT just ask questions
+□ User did NOT stay silent
+□ Explicit approval received
+
+If ANY unchecked: STOP. Wait for approval.
+```
+
+**Before Phase 7 (Validation):**
+```
+□ Phase 6 complete: All planned changes executed
+□ No execution errors occurred
+□ All files created/modified successfully
+
+If ANY unchecked: STOP. Fix execution errors.
+```
+
+**Before Phase 8 (Archive):**
+```
+□ Phase 7 complete: All tests passed
+□ Build successful
+□ No validation errors
+
+If ANY unchecked: STOP. Fix validation errors.
 ```
 
 ---

@@ -1,0 +1,13 @@
+{
+  "name": "Enforce Workflow Before File Operations",
+  "version": "1.0.0",
+  "description": "Verify phases 1-5 completed before allowing file writes",
+  "when": {
+    "type": "preToolUse",
+    "toolTypes": ["write"]
+  },
+  "then": {
+    "type": "askAgent",
+    "prompt": "⚠️ WORKFLOW ENFORCEMENT CHECK ⚠️\n\nBefore writing files, verify you completed ALL phases:\n\n✅ Phase 1: Clarified requirements (100% clear)\n✅ Phase 2: Called mcp_intelligent_context_intelligent_search\n✅ Phase 3: Called mcp_predictive_analysis_analyze_security\n✅ Phase 4: Called mcp_sequential_thinking_sequentialthinking\n✅ Phase 5: Got explicit user approval (\"yes\"/\"proceed\"/\"go ahead\")\n\nIf ANY phase is incomplete:\n❌ STOP immediately\n❌ Do NOT proceed with file write\n❌ Complete missing phases first\n\nOnly proceed if ALL 5 phases are complete."
+  }
+}
