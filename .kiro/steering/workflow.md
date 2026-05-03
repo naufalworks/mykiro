@@ -59,6 +59,100 @@ If you skip phases:
 
 ---
 
+## Spec Task Execution (MANDATORY)
+
+### Critical Rule for Specs
+
+When working with specs that have multiple tasks:
+
+**EACH TASK MUST GO THROUGH THE FULL WORKFLOW**
+
+### Task Execution Loop
+
+```
+Spec Start → Task 1 → Phases 2-8 → Complete
+                    ↓
+                Task 2 → Phases 2-8 → Complete
+                    ↓
+                Task 3 → Phases 2-8 → Complete
+```
+
+**For EACH task:**
+1. **CLARIFY** (Phase 1) - If task requirements unclear
+2. **SEARCH** (Phase 2) - `mcp_intelligent_context_intelligent_search`
+3. **DETECT** (Phase 3) - `mcp_predictive_analysis_analyze_security`
+4. **PLAN** (Phase 4) - `mcp_sequential_thinking_sequentialthinking`
+5. **APPROVE** (Phase 5) - Wait for explicit "yes"
+6. **EXECUTE** (Phase 6) - Implement the task
+7. **VALIDATE** (Phase 7) - Run tests
+8. **ARCHIVE** (Phase 8) - `mcp_adaptive_memory_store_memory`
+
+### Enforcement Checklist (Per Task)
+
+Before executing ANY task in a spec:
+
+```
+✅ Phase 2: Called mcp_intelligent_context_intelligent_search for THIS task
+✅ Phase 3: Called mcp_predictive_analysis_analyze_security for THIS task
+✅ Phase 4: Called mcp_sequential_thinking_sequentialthinking for THIS task
+✅ Phase 5: User approved THIS specific task
+
+If ANY ❌ exists: STOP. Complete missing phases for THIS task.
+```
+
+### Why This Matters
+
+**Problem:**
+```
+❌ WRONG: Workflow runs once at spec start
+Spec Start → Phases 1-5 → Task 1 executes
+                       → Task 2 executes (no workflow!)
+                       → Task 3 executes (no workflow!)
+```
+
+**Solution:**
+```
+✅ CORRECT: Workflow runs for each task
+Spec Start → Task 1 → Phases 2-8
+          → Task 2 → Phases 2-8
+          → Task 3 → Phases 2-8
+```
+
+### Example: 3-Task Spec
+
+```
+Task 1: Create data models
+├─ Phase 2: Search for existing models
+├─ Phase 3: Detect security issues
+├─ Phase 4: Plan implementation
+├─ Phase 5: Get approval
+├─ Phase 6: Create files
+├─ Phase 7: Run tests
+└─ Phase 8: Archive
+
+Task 2: Create API endpoints
+├─ Phase 2: Search for API patterns (NEW search for THIS task)
+├─ Phase 3: Detect issues (NEW analysis for THIS task)
+├─ Phase 4: Plan endpoints (NEW plan for THIS task)
+├─ Phase 5: Get approval (NEW approval for THIS task)
+├─ Phase 6: Create endpoints
+├─ Phase 7: Run tests
+└─ Phase 8: Archive
+
+Task 3: Add tests
+├─ Phase 2: Search for test patterns (NEW search for THIS task)
+├─ Phase 3: Detect issues (NEW analysis for THIS task)
+├─ Phase 4: Plan tests (NEW plan for THIS task)
+├─ Phase 5: Get approval (NEW approval for THIS task)
+├─ Phase 6: Write tests
+├─ Phase 7: Run tests
+└─ Phase 8: Archive
+```
+
+**Never skip phases between tasks. Each task is independent and requires full workflow.**
+
+---
+
 ## Complete Workflow Process
 
 ### Phase 1: Understanding (Clarification Loop)

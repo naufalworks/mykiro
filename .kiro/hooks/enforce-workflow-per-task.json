@@ -1,0 +1,12 @@
+{
+  "name": "Enforce Workflow Per Task",
+  "version": "1.0.0",
+  "description": "Ensures the full workflow (Phases 2-8) is completed for EACH task in a spec before execution. Prevents skipping Search, Detect, Plan, and Approve phases between tasks.",
+  "when": {
+    "type": "preTaskExecution"
+  },
+  "then": {
+    "type": "askAgent",
+    "prompt": "⚠️ PRE-TASK WORKFLOW ENFORCEMENT\n\nBefore executing this task, you MUST complete these phases:\n\n✅ Phase 2 (SEARCH): Call mcp_intelligent_context_intelligent_search\n   - Query: Context relevant to THIS specific task\n   - Find: Existing code, patterns, dependencies for THIS task\n\n✅ Phase 3 (DETECT): Call mcp_predictive_analysis_analyze_security\n   - Analyze: Security, performance, architecture issues for THIS task\n   - Report: Any issues found\n\n✅ Phase 4 (PLAN): Call mcp_sequential_thinking_sequentialthinking\n   - Create: Detailed execution plan for THIS task\n   - Present: Complete plan with files, impact, risks\n\n✅ Phase 5 (APPROVE): Wait for explicit user approval\n   - Show: Complete plan to user\n   - Wait: For \"yes\", \"proceed\", or \"go ahead\"\n   - Do NOT execute without approval\n\nOnly after ALL phases complete, proceed with Phase 6 (Execute).\n\nNEVER skip phases between tasks. Each task requires the full workflow."
+  }
+}
