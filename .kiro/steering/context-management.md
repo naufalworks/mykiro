@@ -35,15 +35,15 @@ Medium usage (30-60%):
 └─ Action: Be concise, avoid unnecessary verbosity
 
 High usage (60-70%):
-├─ Exchanges: 30-40 messages
-├─ Tool calls: 50-80 calls
-├─ Files read: 25-40 files
+├─ Exchanges: 25-30 messages
+├─ Tool calls: 40-60 calls
+├─ Files read: 20-30 files
 └─ Action: Offer summary and suggest fresh start
 
 Critical usage (70%+):
-├─ Exchanges: 40+ messages
-├─ Tool calls: 80+ calls
-├─ Files read: 40+ files
+├─ Exchanges: 30+ messages
+├─ Tool calls: 60+ calls
+├─ Files read: 30+ files
 └─ Action: MUST offer summary, strongly recommend fresh start
 ```
 
@@ -151,13 +151,13 @@ Would you like me to generate it?
 Every 10 exchanges:
 └─ Assess if conversation is focused or wandering
 
-Every 20 exchanges:
+Every 15 exchanges:
 └─ Consider if tasks could be split into new conversation
 
-Every 30 exchanges:
+Every 20 exchanges:
 └─ Prepare to offer summary
 
-At 35-40 exchanges:
+At 25-30 exchanges:
 └─ MUST offer summary and recommend fresh start
 ```
 
@@ -222,7 +222,7 @@ Starting a fresh conversation provides:
 ```
 User: "Can you help me with another feature?"
 
-Agent: "I'd be happy to help! However, I notice we're at ~35 exchanges
+Agent: "I'd be happy to help! However, I notice we're at ~25 exchanges
 in this conversation (approaching 70% context usage).
 
 We've completed:
