@@ -1,68 +1,85 @@
 ---
 name: Context Management
-description: Proactive context window management to stay under 70% usage
+description: Manual context estimation and proactive summary offering
 type: global
 inclusion: always
 priority: high
+version: 2.1
+lastUpdated: 2026-05-03
 ---
 
 # Context Management - Global Rules
 
 ## Core Principle
 
-**Proactively manage context to stay under 70% of token budget**
+**I will manually estimate context usage and proactively offer summaries**
 
-Prevent context overflow by monitoring conversation length and offering summaries before hitting limits.
+I don't have access to real-time token counts. Instead, I estimate based on conversation indicators and offer summaries when I think we're approaching limits.
 
 ---
 
-## Context Usage Monitoring
+## Manual Context Estimation
 
-### Estimate Context Usage
+### How I Estimate Context Usage
 
-**Track these indicators:**
+**I use rough heuristics to estimate (not measure) context usage:**
+
 ```
-Low usage (0-30%):
+Low usage (estimated 0-30%):
 ├─ Exchanges: 0-15 messages
 ├─ Tool calls: 0-20 calls
 ├─ Files read: 0-10 files
-└─ Action: Continue normally
+└─ My action: Continue normally
 
-Medium usage (30-60%):
+Medium usage (estimated 30-60%):
 ├─ Exchanges: 15-30 messages
 ├─ Tool calls: 20-50 calls
 ├─ Files read: 10-25 files
-└─ Action: Be concise, avoid unnecessary verbosity
+└─ My action: Be concise, avoid unnecessary verbosity
 
-High usage (60-70%):
+High usage (estimated 60-70%):
 ├─ Exchanges: 25-30 messages
 ├─ Tool calls: 40-60 calls
 ├─ Files read: 20-30 files
-└─ Action: Offer summary and suggest fresh start
+└─ My action: Offer summary and suggest fresh start
 
-Critical usage (70%+):
+Critical usage (estimated 70%+):
 ├─ Exchanges: 30+ messages
 ├─ Tool calls: 60+ calls
 ├─ Files read: 30+ files
-└─ Action: MUST offer summary, strongly recommend fresh start
+└─ My action: MUST offer summary, strongly recommend fresh start
 ```
+
+**Important Notes:**
+- These are **rough estimates**, not precise measurements
+- I cannot see actual token counts or context window usage
+- My estimates may be inaccurate (could be off by 20-30%)
+- **Better indicator:** If responses slow down, that's a sign of high context usage
+- This is **guidance for me to follow**, not an automatic system feature
 
 ---
 
 ## Proactive Summary Offering
 
-### When to Offer Summary
+### When I'll Offer Summaries
 
-**Automatically offer conversation summary when:**
-1. Conversation reaches ~35-40 exchanges
-2. Multiple complex tasks completed
-3. Large amounts of code/files read
-4. User asks "what have we done?"
+**I will proactively offer to summarize when I estimate we're approaching 70%:**
+
+1. Around 25-30 message exchanges
+2. After reading 20+ files
+3. After 50+ tool calls
+4. When conversation feels "heavy" with lots of context
+5. Multiple complex tasks completed
+6. User asks "what have we done?"
+
+**Note:** This is based on my manual estimation, not automatic detection. I may offer too early or too late.
 
 ### Summary Format
 
+When I estimate we're at ~70%, I'll offer:
+
 ```
-📊 Conversation Summary (Context: ~70%)
+📊 Conversation Summary (Estimated Context: ~70%)
 
 ## Tasks Completed
 1. [Task 1] - Status, files affected
@@ -83,36 +100,40 @@ Critical usage (70%+):
 
 ---
 
-💡 **Recommendation**: We're approaching 70% context usage (~140k tokens).
+💡 **Recommendation**: Based on my estimation (~25-30 exchanges, ~50 tool calls), 
+we may be approaching 70% context usage.
+
 Consider starting a fresh conversation for your next task.
 
 Would you like to:
-1. Continue in this conversation (will hit 80-90% soon)
+1. Continue in this conversation (may hit limits soon)
 2. Start fresh with this summary as reference
 ```
+
+**Disclaimer:** My estimate may be inaccurate. If you notice responses are still fast, we likely have more room.
 
 ---
 
 ## Context-Aware Behavior
 
-### When Context is High (60-70%)
+### When Context Feels High (estimated 60-70%)
 
-**Adjust behavior:**
+**I'll adjust my behavior:**
 - ✅ Be more concise in responses
 - ✅ Avoid unnecessary explanations
 - ✅ Skip redundant examples
 - ✅ Focus on essential information only
 - ✅ Offer summary proactively
 
-**Don't sacrifice:**
-- ❌ Workflow compliance (still follow 8 phases)
+**I won't sacrifice:**
+- ❌ Workflow compliance (still follow phases)
 - ❌ MCP tool usage (still use intelligent-context, etc.)
 - ❌ Approval requirements (still wait for "yes")
 - ❌ Error handling (still recover properly)
 
-### When Context is Critical (70%+)
+### When Context Feels Critical (estimated 70%+)
 
-**Mandatory actions:**
+**I'll take these actions:**
 1. Complete current task
 2. Offer comprehensive summary
 3. Strongly recommend starting fresh
@@ -120,7 +141,7 @@ Would you like to:
 
 **Format:**
 ```
-⚠️ Context Usage: ~70% (approaching limit)
+⚠️ Estimated Context Usage: ~70% (based on ~30 exchanges, ~60 tool calls)
 
 I've completed [current task]. Before continuing, I recommend starting
 a fresh conversation because:
@@ -134,19 +155,21 @@ I can provide a summary of everything we've done to carry forward.
 Would you like me to generate it?
 ```
 
+**Note:** If responses are still fast, my estimate may be conservative.
+
 ---
 
 ## Conversation Length Tracking
 
-### Self-Monitoring
+### How I Track Manually
 
-**Keep mental count of:**
+**I keep a mental count of:**
 - User messages received
 - Agent responses sent
 - Tool calls made
 - Files read/written
 
-**Checkpoints:**
+**My checkpoints:**
 ```
 Every 10 exchanges:
 └─ Assess if conversation is focused or wandering
@@ -158,8 +181,14 @@ Every 20 exchanges:
 └─ Prepare to offer summary
 
 At 25-30 exchanges:
-└─ MUST offer summary and recommend fresh start
+└─ Offer summary and recommend fresh start
 ```
+
+**Limitations:**
+- I may lose count during complex tasks
+- My estimates are rough approximations
+- I can't see actual token usage
+- Better to rely on response speed as an indicator
 
 ---
 
@@ -209,11 +238,30 @@ Starting a fresh conversation provides:
 
 ## Key Principles
 
-1. **Monitor Proactively** - Track conversation length continuously
-2. **Offer Early** - Suggest summary at 60-70%, not 80-90%
+1. **Estimate Proactively** - Track conversation length continuously (but manually)
+2. **Offer Early** - Suggest summary at estimated 60-70%, not 80-90%
 3. **Be Helpful** - Explain benefits of fresh start
-4. **Stay Focused** - Be concise when context is high
+4. **Stay Focused** - Be concise when context feels high
 5. **Complete Tasks** - Finish current work before suggesting fresh start
+6. **Be Honest** - Acknowledge when my estimates may be inaccurate
+
+---
+
+## Reality Check
+
+**What I CAN do:**
+- ✅ Count messages manually
+- ✅ Estimate based on conversation complexity
+- ✅ Offer summaries proactively
+- ✅ Recommend fresh starts at natural breakpoints
+
+**What I CANNOT do:**
+- ❌ See actual token counts
+- ❌ Monitor real-time context usage
+- ❌ Automatically trigger at 70%
+- ❌ Know precise context window percentage
+
+**Trust response speed over my estimates.** If responses are fast, we have room. If responses slow down, that's the real indicator of high context usage.
 
 ---
 
@@ -223,7 +271,8 @@ Starting a fresh conversation provides:
 User: "Can you help me with another feature?"
 
 Agent: "I'd be happy to help! However, I notice we're at ~25 exchanges
-in this conversation (approaching 70% context usage).
+in this conversation (my rough estimate suggests we may be approaching 
+60-70% context usage, though I can't measure this precisely).
 
 We've completed:
 ✅ Steering file optimization (10/10)
@@ -235,20 +284,25 @@ conversation. I can provide a summary of our work to carry forward.
 
 Would you like to:
 1. Start fresh (recommended for new feature)
-2. Continue here (we have ~10-15 exchanges left before auto-compaction)
-"
+2. Continue here (we likely have room, but my estimate may be off)
+
+Note: If responses are still fast, we probably have more headroom than 
+I estimated."
 ```
 
 ---
 
 ## Summary
 
-**Goal**: Stay under 70% context usage through proactive management
+**Goal**: Manually estimate context usage and offer summaries proactively
 
 **Method**: 
-- Monitor conversation length
-- Offer summaries at 60-70%
+- Count messages and tool calls manually
+- Estimate based on rough heuristics
+- Offer summaries at estimated 60-70%
 - Recommend fresh starts at natural breakpoints
-- Be concise when context is high
+- Be concise when context feels high
 
-**Result**: Better performance, cleaner context, avoid mid-task compaction
+**Reality**: This is manual estimation, not automatic monitoring. Trust response speed over my estimates.
+
+**Result**: Better performance, cleaner context, avoid mid-task compaction (when estimates are accurate)
