@@ -106,6 +106,9 @@ If ANY ❌ exists: STOP. Complete missing phases first.
 ### Encountering errors?
 → Load **#workflow-error-recovery.md**
 
+### Executing spec tasks?
+→ See **#spec-task-workflow.md** (in .kiro/docs/)
+
 ### Need MCP documentation?
 → See **#mcp-powers-skills.md**
 

@@ -67,6 +67,48 @@ When working with specs that have multiple tasks:
 
 **EACH TASK MUST GO THROUGH THE FULL WORKFLOW**
 
+---
+
+## ⚠️ CRITICAL: TASK EXECUTION LOOP ⚠️
+
+**THIS IS THE MOST IMPORTANT RULE FOR SPEC EXECUTION**
+
+### Visual Workflow Pattern
+
+```
+╔═══════════════════════════════════════════════════════════════╗
+║                    CORRECT PATTERN                            ║
+╠═══════════════════════════════════════════════════════════════╣
+║                                                               ║
+║  Spec Start                                                   ║
+║      ↓                                                        ║
+║  Task 1 ──→ Phase 2 ──→ Phase 3 ──→ Phase 4 ──→ Phase 5 ──→  ║
+║             (Search)    (Detect)    (Plan)      (Approve)     ║
+║      ↓                                                        ║
+║  Task 2 ──→ Phase 2 ──→ Phase 3 ──→ Phase 4 ──→ Phase 5 ──→  ║
+║             (Search)    (Detect)    (Plan)      (Approve)     ║
+║      ↓                                                        ║
+║  Task 3 ──→ Phase 2 ──→ Phase 3 ──→ Phase 4 ──→ Phase 5 ──→  ║
+║             (Search)    (Detect)    (Plan)      (Approve)     ║
+║                                                               ║
+║  ✅ EACH TASK GETS FULL WORKFLOW                              ║
+╚═══════════════════════════════════════════════════════════════╝
+
+╔═══════════════════════════════════════════════════════════════╗
+║                    ❌ WRONG PATTERN ❌                         ║
+╠═══════════════════════════════════════════════════════════════╣
+║                                                               ║
+║  Spec Start ──→ Phase 2 ──→ Phase 3 ──→ Phase 4 ──→ Phase 5  ║
+║                 (Search)    (Detect)    (Plan)    (Approve)   ║
+║      ↓                                                        ║
+║  Task 1 executes                                              ║
+║  Task 2 executes  ← NO WORKFLOW! ❌                           ║
+║  Task 3 executes  ← NO WORKFLOW! ❌                           ║
+║                                                               ║
+║  ❌ THIS WILL INTRODUCE BUGS AND SECURITY ISSUES              ║
+╚═══════════════════════════════════════════════════════════════╝
+```
+
 ### Task Execution Loop
 
 ```
@@ -86,6 +128,53 @@ Spec Start → Task 1 → Phases 2-8 → Complete
 6. **EXECUTE** (Phase 6) - Implement the task
 7. **VALIDATE** (Phase 7) - Run tests
 8. **ARCHIVE** (Phase 8) - `mcp_adaptive_memory_store_memory`
+
+---
+
+## 🛑 STOP AND CHECK - BEFORE EVERY TASK ��
+
+**Before executing ANY task in a spec, you MUST verify ALL of these:**
+
+```
+╔═══════════════════════════════════════════════════════════════╗
+║           MANDATORY CHECKLIST FOR THIS TASK                   ║
+╠═══════════════════════════════════════════════════════════════╣
+║                                                               ║
+║  ✅ Phase 2: Called mcp_intelligent_context_intelligent_search║
+║              Query: "[specific context for THIS task]"        ║
+║              Result: Found relevant code/patterns             ║
+║                                                               ║
+║  ✅ Phase 3: Called mcp_predictive_analysis_analyze_security  ║
+║              Analyzed: Code relevant to THIS task             ║
+║              Result: Security/performance issues identified   ║
+║                                                               ║
+║  ✅ Phase 4: Called mcp_sequential_thinking_sequentialthinking║
+║              Created: Detailed plan for THIS task             ║
+║              Result: Step-by-step execution plan              ║
+║                                                               ║
+║  ✅ Phase 5: User approved THIS specific task                 ║
+║              Showed: Complete plan to user                    ║
+║              Received: "yes" / "proceed" / "go ahead"         ║
+║                                                               ║
+╠═══════════════════════════════════════════════════════════════╣
+║  IF ANY ❌ EXISTS: STOP IMMEDIATELY                           ║
+║  DO NOT PROCEED TO PHASE 6 (EXECUTE)                          ║
+║  COMPLETE MISSING PHASES FOR THIS TASK FIRST                  ║
+╚═══════════════════════════════════════════════════════════════╝
+```
+
+**This checklist applies to EVERY task, not just the first one.**
+
+**If you skip phases, you WILL:**
+- ❌ Introduce security vulnerabilities
+- ❌ Miss existing patterns and duplicate code
+- ❌ Use suboptimal approaches
+- ❌ Create bugs that could have been prevented
+- ❌ Waste the user's time with rework
+
+**NEVER execute a task without completing phases 2-8 first.**
+
+---
 
 ### Enforcement Checklist (Per Task)
 
@@ -150,6 +239,10 @@ Task 3: Add tests
 ```
 
 **Never skip phases between tasks. Each task is independent and requires full workflow.**
+
+---
+
+**For detailed guidance on spec task workflow, see: `.kiro/docs/spec-task-workflow.md`**
 
 ---
 
