@@ -2,11 +2,12 @@
 
 ## Overview
 
-This guide documents the integration of three Model Context Protocol (MCP) servers into the Kiro development environment:
+This guide documents the integration of two Model Context Protocol (MCP) servers into the Kiro development environment:
 
-1. **Shell MCP** - Execute shell commands safely
-2. **Markdown MCP** - Parse and manipulate markdown files
-3. **Filesystem MCP** - Access files with security boundaries
+1. **Markdown MCP** - Parse and manipulate markdown files
+2. **Filesystem MCP** - Access files with security boundaries
+
+**Note**: Shell MCP was initially planned but removed due to a critical bug in the `mcp-server-shell` package (coroutine not awaited). Shell command execution is already available through Kiro's built-in `executeBash` tool, which is more secure and better integrated.
 
 ## Configuration Strategy
 
@@ -28,9 +29,10 @@ We use a **hybrid configuration approach**:
 **Purpose**: Servers that are useful across all workspaces
 
 **Servers Configured**:
-- Shell MCP (command execution)
 - Markdown MCP (markdown processing)
 - Filesystem MCP (restricted to `~/.kiro` only)
+
+**Note**: Shell MCP was removed due to a bug in the community package.
 
 **When to Use**:
 - Servers that don't need workspace-specific configuration
@@ -97,11 +99,6 @@ Location: `~/.kiro/settings/mcp.json`
 ```json
 {
   "mcpServers": {
-    "shell": {
-      "command": "uvx",
-      "args": ["mcp-server-shell"],
-      "autoApprove": ["pwd", "which"]
-    },
     "markdown": {
       "command": "npx",
       "args": ["-y", "mcp-server-markdown"],
@@ -218,16 +215,11 @@ The MCP servers have built-in protection against path traversal attacks:
 
 ### Shell MCP
 
-**Auto-Approved Commands**:
-- `pwd` - Print working directory (safe, read-only)
-- `which` - Locate commands (safe, read-only)
+**Status**: Removed due to bug in community package
 
-**Security Decision**: We intentionally limited auto-approve to only these two commands. Commands like `ls`, `cat`, `grep`, `find`, and `echo` were removed due to:
-- **Command Injection Risk**: These commands can be exploited with malicious arguments
-- **Path Traversal Risk**: Can be used to read files outside intended directories
-- **Data Exfiltration Risk**: Can be used to leak sensitive information
+**Reason**: The `mcp-server-shell` package has a critical bug (Python coroutine not awaited) that prevents it from starting. Since Kiro already has a built-in `executeBash` tool for shell command execution, the Shell MCP server is not necessary.
 
-**Recommendation**: For other commands, user confirmation is required for safety.
+**Alternative**: Use Kiro's built-in `executeBash` tool for shell commands.
 
 ### Markdown MCP
 
@@ -503,12 +495,13 @@ validate_allowed_directory "/path/to/validate"
 
 This integration provides:
 
-✅ **Shell MCP**: Safe command execution with minimal auto-approve
 ✅ **Markdown MCP**: Full markdown processing capabilities
 ✅ **Filesystem MCP**: Secure file access with workspace isolation
 ✅ **Security**: Multi-layer protection against unauthorized access
 ✅ **Flexibility**: Hybrid configuration for global and workspace-specific needs
 ✅ **Safety**: Read-only auto-approve, write operations require confirmation
+
+**Shell MCP Note**: Originally planned but removed due to a bug in the community package. Kiro's built-in `executeBash` tool provides equivalent functionality with better integration.
 
 **Next Steps**:
 1. Restart Kiro to load the configurations
