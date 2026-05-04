@@ -1,0 +1,17 @@
+{
+  "mcpServers": {
+    "filesystem-workspace": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-filesystem",
+        "/Users/azfar.naufal/Documents/analyze/mykiro"
+      ],
+      "autoApprove": [
+        "read_file",
+        "list_directory",
+        "search_files"
+      ]
+    }
+  }
+}
