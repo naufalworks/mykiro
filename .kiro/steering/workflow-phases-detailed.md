@@ -196,32 +196,6 @@ Step 4: Execution Plan
 └─ Rollback plan (if needed)
 ```
 
-**When to Use collaborative-planning MCP:**
-
-For complex tasks that need decomposition:
-
-**Criteria:**
-- Task estimated >1 hour
-- Multiple subtasks with dependencies
-- Requires subagent coordination
-- Complex workflow orchestration
-
-**Tools:**
-- `mcp_collaborative_planning_decompose_task` - Break down complex tasks
-- `mcp_collaborative_planning_coordinate_agents` - Assign to subagents
-- `mcp_collaborative_planning_orchestrate_workflow` - Plan execution order
-- `mcp_collaborative_planning_track_progress` - Monitor progress
-- `mcp_collaborative_planning_optimize_workflow` - Improve based on feedback
-
-**Example:**
-```typescript
-// For complex refactoring task
-mcp_collaborative_planning_decompose_task({
-  task: "Refactor entire auth system with new token management",
-  context: "Current system has 450 lines in one file, needs separation"
-})
-```
-
 **Plan Presentation Format:**
 ```
 📋 Plan: [Task Title]
@@ -314,10 +288,36 @@ User suggests changes → Update plan, re-confirm
 
 **Process:**
 1. Load relevant Powers (on-demand)
-2. Execute step-by-step
-3. Validate after each step
-4. Report progress
-5. Handle errors gracefully
+2. **Use filesystem MCP for all file reads** (prefer over built-in tools)
+3. Execute step-by-step
+4. Validate after each step
+5. Report progress
+6. Handle errors gracefully
+
+**File Operations During Execution:**
+
+**Reading files - ALWAYS use filesystem MCP:**
+```
+✅ PREFER: mcp_filesystem_global_read_text_file
+✅ PREFER: mcp_filesystem_global_read_multiple_files
+✅ PREFER: mcp_filesystem_global_list_directory
+✅ PREFER: mcp_filesystem_global_search_files
+
+⚠️ FALLBACK: readFile, readMultipleFiles, listDirectory (only if MCP fails)
+```
+
+**Writing files - Use built-in tools:**
+```
+✅ fsWrite - Create new files
+✅ strReplace - Edit existing files
+✅ fsAppend - Append to files
+```
+
+**Why filesystem MCP for reading?**
+- More reliable than built-in file tools
+- Better error handling for edge cases
+- Consistent behavior across platforms
+- Handles large files better
 
 **Power Loading:**
 ```

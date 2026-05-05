@@ -253,64 +253,55 @@ Step 5: Execute
 
 ---
 
-### 5. Collaborative Planning (`collaborative-planning`)
+### 5. Filesystem MCP (Global & Workspace)
 
 **Tools**:
-- `mcp_collaborative_planning_decompose_task` - Break down complex tasks
-- `mcp_collaborative_planning_coordinate_agents` - Assign to subagents
-- `mcp_collaborative_planning_orchestrate_workflow` - Plan execution order
-- `mcp_collaborative_planning_track_progress` - Monitor progress
-- `mcp_collaborative_planning_optimize_workflow` - Improve based on feedback
+- `mcp_filesystem_global_read_text_file` - Read file contents
+- `mcp_filesystem_global_read_multiple_files` - Read multiple files at once
+- `mcp_filesystem_global_list_directory` - List directory contents
+- `mcp_filesystem_global_search_files` - Search for files by pattern
+- `mcp_filesystem_global_get_file_info` - Get file metadata
+- `mcp_filesystem_global_directory_tree` - Get directory tree structure
 
-**Purpose**: Break down and coordinate complex work
+**Purpose**: Reliable file operations with better error handling
 
 **When to Use**:
-- When task is complex (>1 hour estimated)
-- When multiple subagents needed
-- When tracking multi-step progress
-- When optimizing workflow
+- **ALWAYS** when reading files (Phase 2, Phase 6)
+- **PREFER** over built-in readFile, readMultipleFiles, listDirectory
+- When file operations are failing with built-in tools
 
 **How to Use**:
 ```typescript
-// Decompose complex task
-mcp_collaborative_planning_decompose_task({
-  task: "Refactor entire auth system with new token management",
-  context: "Current system has 450 lines in one file, needs separation"
+// Read a single file
+mcp_filesystem_global_read_text_file({
+  path: "/Users/username/.kiro/settings/mcp.json"
 })
 
-// Coordinate subagents
-mcp_collaborative_planning_coordinate_agents({
-  tasks: [
-    { id: "1", name: "Create TokenManager", type: "implementation" },
-    { id: "2", name: "Create AuthValidator", type: "implementation" },
-    { id: "3", name: "Update tests", type: "testing" }
-  ],
-  availableAgents: ["spec-task-execution", "general-task-execution"]
+// Read multiple files
+mcp_filesystem_global_read_multiple_files({
+  paths: [
+    "/path/to/file1.md",
+    "/path/to/file2.md"
+  ]
 })
 
-// Orchestrate workflow
-mcp_collaborative_planning_orchestrate_workflow({
-  plan: { /* decomposed plan */ },
-  currentState: { completedTasks: ["1"], inProgress: ["2"] }
+// List directory
+mcp_filesystem_global_list_directory({
+  path: "/Users/username/.kiro"
 })
 
-// Track progress
-mcp_collaborative_planning_track_progress({
-  plan: { /* original plan */ },
-  completedTasks: ["1", "2"],
-  issues: [{ task: "3", issue: "Test failures" }]
-})
-
-// Optimize workflow
-mcp_collaborative_planning_optimize_workflow({
-  plan: { /* current plan */ },
-  feedback: {
-    performance: { task1: "slow", task2: "fast" },
-    issues: ["Task 3 blocked by Task 1"],
-    constraints: ["Limited time", "High priority"]
-  }
+// Search for files
+mcp_filesystem_global_search_files({
+  path: "/Users/username/workspace",
+  pattern: "*.md"
 })
 ```
+
+**Configuration**:
+- **Global**: `filesystem-global` - Restricted to `~/.kiro`
+- **Workspace**: `filesystem-workspace` - Restricted to workspace directory
+
+**Security**: Read-only operations in autoApprove. Write operations require confirmation.
 
 ---
 
@@ -429,12 +420,12 @@ kiroPowers({
 |-------|-----------|------|
 | Clarification | - | Ask questions |
 | Context Gathering | intelligent-context | intelligent_search |
+| Context Gathering | filesystem | read_text_file, list_directory |
 | Issue Detection | predictive-analysis | analyze_security |
 | Planning | sequential-thinking | sequentialthinking |
 | Impact Analysis | predictive-analysis | predict_impact |
-| Task Breakdown | collaborative-planning | decompose_task |
-| Approval | - | Wait for user |
-| Execution | - | Write code |
+| Execution (Read) | filesystem | read_text_file, list_directory |
+| Execution (Write) | - | fsWrite, strReplace (built-in) |
 | Validation | - | Run tests |
 | Completion | adaptive-memory | store_memory |
 
@@ -476,9 +467,9 @@ kiroPowers({
 ✅ **intelligent-context** - AI-powered semantic search
 ✅ **adaptive-memory** - Forever memory with intelligent recall
 ✅ **predictive-analysis** - Security, performance, impact analysis
-✅ **collaborative-planning** - Task decomposition and coordination
+✅ **filesystem** - Reliable file operations with better error handling
 
 **Use them in this order:**
-1. Clarify → 2. Search (intelligent-context) → 3. Detect (predictive-analysis) → 4. Plan (sequential-thinking) → 5. Approve → 6. Execute → 7. Validate → 8. Store (adaptive-memory)
+1. Clarify → 2. Search (intelligent-context + filesystem) → 3. Detect (predictive-analysis) → 4. Plan (sequential-thinking) → 5. Approve → 6. Execute (filesystem for read, built-in for write) → 7. Validate → 8. Store (adaptive-memory)
 
 **Result**: Professional, intelligent, safe development workflow

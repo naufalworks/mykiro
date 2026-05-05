@@ -47,6 +47,30 @@ Before calling `fsWrite`, `strReplace`, `fsAppend`, or `deleteFile`:
 If ANY ❌ exists: STOP. Complete missing phases first.
 ```
 
+### File Operations: Prefer Filesystem MCP
+
+**When reading files, ALWAYS prefer filesystem MCP tools over built-in tools:**
+
+```
+✅ PREFER: mcp_filesystem_global_read_text_file (for reading)
+✅ PREFER: mcp_filesystem_global_read_multiple_files (for batch reading)
+✅ PREFER: mcp_filesystem_global_list_directory (for listing)
+✅ PREFER: mcp_filesystem_global_search_files (for searching)
+
+⚠️ FALLBACK: readFile, readMultipleFiles, listDirectory (only if MCP fails)
+```
+
+**Why filesystem MCP?**
+- More reliable than built-in file tools
+- Better error handling
+- Consistent behavior across platforms
+- Built-in path validation
+
+**For writing files, use built-in tools (filesystem MCP is read-only):**
+- `fsWrite` - Create new files
+- `strReplace` - Edit existing files
+- `fsAppend` - Append to files
+
 ### Consequences of Skipping Phases
 
 If you skip phases:
@@ -304,9 +328,10 @@ Task 3: Add tests
 | Phase | MCP Server | Tool | When |
 |-------|-----------|------|------|
 | 2 | intelligent-context | intelligent_search | Always (after clarification) |
+| 2 | filesystem | read_text_file, list_directory | Always (for file reading) |
 | 3 | predictive-analysis | analyze_security | Always (before planning) |
 | 4 | sequential-thinking | sequentialthinking | Always (for planning) |
-| 4 | collaborative-planning | decompose_task | Complex tasks (>1 hour) |
+| 6 | filesystem | read_text_file, list_directory | Always (prefer over built-in) |
 | 8 | adaptive-memory | store_memory | Always (after completion) |
 
 ---
